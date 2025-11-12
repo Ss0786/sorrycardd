@@ -58,19 +58,6 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    #music-icon {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(255,255,255,0.8);
-      color: #ff6b6b;
-      padding: 10px 14px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    }
     #ending {
       animation: fadeIn 2s ease-in-out;
     }
@@ -98,32 +85,13 @@
     </p>
   </div>
 
-  <div id="music-icon">🔊</div>
-
-  <!-- 🎵 Background music -->
-  <audio id="bg-audio" src="forareason.mp3" preload="auto" loop></audio>
-
   <script>
     const okBtn = document.getElementById('okBtn');
     const noBtn = document.getElementById('noBtn');
     const card = document.getElementById('card');
     const ending = document.getElementById('ending');
     const emoji = document.getElementById('emoji');
-    const musicIcon = document.getElementById('music-icon');
-    const audio = document.getElementById('bg-audio');
     let noClickCount = 0;
-
-    // Try autoplay after 2 seconds
-    setTimeout(() => {
-      audio.play().catch(() => {
-        musicIcon.style.display = 'block';
-      });
-    }, 2000);
-
-    musicIcon.addEventListener('click', () => {
-      audio.play();
-      musicIcon.style.display = 'none';
-    });
 
     okBtn.addEventListener('click', () => {
       card.classList.add('hidden');
