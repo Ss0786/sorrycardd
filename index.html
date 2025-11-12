@@ -58,6 +58,19 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+    #music-icon {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.85);
+      color: #ff6b6b;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 1.3rem;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.25);
+      display: none;
+    }
     #ending {
       animation: fadeIn 2s ease-in-out;
     }
@@ -85,13 +98,51 @@
     </p>
   </div>
 
+  <div id="music-icon">🔊</div>
+
+  <!-- 🎵 Background music (local file in same repo) -->
+  <audio id="bg-audio" src="forareason.mp3" preload="auto" loop></audio>
+
   <script>
     const okBtn = document.getElementById('okBtn');
     const noBtn = document.getElementById('noBtn');
     const card = document.getElementById('card');
     const ending = document.getElementById('ending');
     const emoji = document.getElementById('emoji');
+    const musicIcon = document.getElementById('music-icon');
+    const audio = document.getElementById('bg-audio');
     let noClickCount = 0;
+
+    // Try autoplay after 2 seconds
+    setTimeout(() => {
+      audio.volume = 0;
+      audio.play().then(() => {
+        // Smooth fade-in effect
+        let volume = 0;
+        const fadeIn = setInterval(() => {
+          if (volume < 1) {
+            volume += 0.05;
+            audio.volume = volume;
+          } else {
+            clearInterval(fadeIn);
+          }
+        }, 200);
+      }).catch(() => {
+        // If autoplay blocked, show icon
+        musicIcon.style.display = 'block';
+      });
+    }, 2000);
+
+    // Manual play/pause
+    musicIcon.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        musicIcon.textContent = '🔊';
+      } else {
+        audio.pause();
+        musicIcon.textContent = '🔇';
+      }
+    });
 
     okBtn.addEventListener('click', () => {
       card.classList.add('hidden');
