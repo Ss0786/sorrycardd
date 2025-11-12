@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>I’m Sorry My Love 💔</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      color: #fff;
+      text-align: center;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    h1 {
+      font-size: 2.5rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-top: 15px;
+      animation: fadeIn 3s ease-in-out;
+    }
+    button {
+      background-color: #fff;
+      color: #ee5a5a;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 1rem;
+      margin: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    button:hover {
+      transform: scale(1.1);
+      background-color: #ffe3e3;
+    }
+    .hidden {
+      display: none;
+    }
+    #emoji {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      animation: bounce 1.5s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #music-icon {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.8);
+      color: #ff6b6b;
+      padding: 10px 14px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    #ending {
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div id="card">
+    <div id="emoji">🥺</div>
+    <h1>I’m sorry, my love... my cutie 💔</h1>
+    <p>Please forgive me... I didn’t mean to hurt you 😔</p>
+    <div>
+      <button id="okBtn">OK 💖</button>
+      <button id="noBtn">No 😡</button>
+    </div>
+  </div>
+
+  <div id="ending" class="hidden">
+    <div id="emoji">❤️</div>
+    <h1>My Love, My Life, My Everything 💞</h1>
+    <p>
+      Tera gussa bhi utna hi pyaara hai,<br>
+      jitna tera muskurana... 💫<br>
+      Tu roothti hai toh lagta hai zindagi ruk gayi,<br>
+      aur tu hansti hai toh lagta hai sab kuch mil gaya 💖
+    </p>
+  </div>
+
+  <div id="music-icon">🔊</div>
+
+  <!-- 🎵 Background music -->
+  <audio id="bg-audio" src="forareason.mp3" preload="auto" loop></audio>
+
+  <script>
+    const okBtn = document.getElementById('okBtn');
+    const noBtn = document.getElementById('noBtn');
+    const card = document.getElementById('card');
+    const ending = document.getElementById('ending');
+    const emoji = document.getElementById('emoji');
+    const musicIcon = document.getElementById('music-icon');
+    const audio = document.getElementById('bg-audio');
+    let noClickCount = 0;
+
+    // Try autoplay after 2 seconds
+    setTimeout(() => {
+      audio.play().catch(() => {
+        musicIcon.style.display = 'block';
+      });
+    }, 2000);
+
+    musicIcon.addEventListener('click', () => {
+      audio.play();
+      musicIcon.style.display = 'none';
+    });
+
+    okBtn.addEventListener('click', () => {
+      card.classList.add('hidden');
+      ending.classList.remove('hidden');
+    });
+
+    noBtn.addEventListener('click', () => {
+      noClickCount++;
+      if (noClickCount === 1) {
+        emoji.textContent = '😭';
+        noBtn.textContent = 'Pls Pls 💔';
+      } else if (noClickCount === 2) {
+        noBtn.textContent = 'Pls Pls 🥺';
+      } else {
+        card.classList.add('hidden');
+        ending.classList.remove('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
